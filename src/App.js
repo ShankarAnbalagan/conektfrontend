@@ -4,6 +4,7 @@ import "./App.css";
 import homepage from "./components/homepage";
 import dashboard from "./components/dashboard";
 import profile from "./components/profile";
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <Router>

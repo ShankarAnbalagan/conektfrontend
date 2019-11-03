@@ -15,11 +15,10 @@ class dashboard extends Component {
     }
         renderRedirect(){
             if(this.state.redirect){
-                console.log("something");
             return <Redirect to='/'/>}
             if(this.state.profile) {
                 return <Redirect to={{pathname: '/profile',
-                state: {data:this.state.data}}}
+                state: {data:this.state.data, userToken:this.props.location.state.userToken}}}
             />
             }
         }
@@ -30,9 +29,10 @@ class dashboard extends Component {
             }
             ).then(res =>{
                 if(res.data.message){
+                    console.log(res.data.data);
                     this.setState({
                         profile:true,
-                        data:res.data.data
+                        data:JSON.stringify(res.data.data)
                     })
                 }
             })
