@@ -210,7 +210,7 @@ class dashboard extends Component {
                 <Nav.Link onClick={this.onclickprofile}>Profile</Nav.Link>
               </Nav>
               <Nav>
-                <Nav.Link onClick={this.onclick}>Logout</Nav.Link>
+                <Button variant="danger" onClick={this.onclick}>Logout</Button>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
