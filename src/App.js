@@ -4,6 +4,7 @@ import "./App.css";
 import homepage from "./components/homepage";
 import dashboard from "./components/dashboard";
 import profile from "./components/profile";
+import commute from "./components/commute";
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" exact component={homepage} />
         <Route path="/dashboard"  component={dashboard} />
         <Route path="/profile"  component={profile} />
+        <Route path="/commute"  component={commute} />
       </Switch>
     </Router>
   );

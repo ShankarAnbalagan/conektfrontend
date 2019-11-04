@@ -1,15 +1,7 @@
 
 
 
-.right {
- 
 
-  float: right;
-}
-.left{
-  float:left;
-  width:50%;
-}
 
 .FormRules{
   margin: 10px;
@@ -18,4 +10,16 @@
 
 .navbarr{
   float:right;
+}
+
+.FormField__Label{
+  
+  margin:5px;
+}
+.FormField__Input{
+  width:100%;
+  margin:5px; 
+}
+.FormField{
+  width:100%;
 }

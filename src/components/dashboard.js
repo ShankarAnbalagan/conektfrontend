@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Navbar, Nav } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
 import conekt from "./../conekt.png";
@@ -18,93 +18,165 @@ class dashboard extends Component {
       redirect: false,
       profile: false,
       data: null,
-      commute:false,
-      dorm:false,
-      notes:false
+      commute: false,
+      dorm: false,
+      notes: false,
+      data2:[]
     };
   }
 
   renderRedirect() {
     if (this.state.redirect) {
-      console.log("something");
+      // console.log("something");
       return <Redirect to="/" />;
     }
     if (this.state.commute) {
-        console.log("something");
-        return <Redirect to="/commute" />;
-      }
-      if (this.state.dorm) {
-        console.log("something");
-        return <Redirect to="/dorm" />;
-      }
-      if (this.state.notes) {
-        console.log("something");
-        return <Redirect to="/notes" />;
-      }
-      if(this.state.profile) {
-        return <Redirect to={{pathname: '/profile',
-        state: {data:this.state.data, userToken:this.props.location.state.userToken}}}/>
+      // console.log("something");
+      return (
+        <Redirect
+          to={{
+            pathname: "/commute",
+            state: {
+              data: this.state.data2,
+              userToken: this.props.location.state.userToken
+            }
+          }}
+        />
+      );
     }
-}
-
-        async onclickprofile(){
-            Axios.post("https://conektapi.herokuapp.com/users/profile/",
-            {
-                usertoken:this.props.location.state.userToken
+    if (this.state.dorm) {
+      // console.log("something");
+      return (
+        <Redirect
+          to={{
+            pathname: "/dorm",
+            state: {
+              data: this.state.data2,
+              userToken: this.props.location.state.userToken
             }
-            ).then(res =>{
-                if(res.data.message){
-                    console.log(res.data.data);
-                    this.setState({
-                        profile:true,
-                        data:JSON.stringify(res.data.data)
-                    })
-                }
+          }}
+        />
+      );
+    }
+    if (this.state.notes) {
+      // console.log("something");
+      return (
+        <Redirect
+          to={{
+            pathname: "/notes",
+            state: {
+              data: this.state.data2,
+              userToken: this.props.location.state.userToken
             }
-            );
-        }
-
-  async onclickcommute(){
-      Axios.post("https://conektapi.herokuapp.com/posts/get-posts",{
-          usertoken: this.props.location.state.userToken,
-          category:"transport"
-      }).then(res=>{
-          if(res.data.message){
-              if(res.data.data.length> 0 ){
-                for(var i=0;i<res.data.data.length;i++)
-                {
-                    console.log(res.data.data[i].text)
-                }
-              }
-          }
-      }).catch(error => {
-        alert(error.response.data.message);
-      });
+          }}
+        />
+      );
+    }
+    if (this.state.profile) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/profile",
+            state: {
+              data: this.state.data,
+              userToken: this.props.location.state.userToken
+            }
+          }}
+        />
+      );
+    }
   }
-  async onclicknotes(){
-    Axios.post("https://conektapi.herokuapp.com/posts/get-posts",{
-        usertoken: this.props.location.state.userToken,
-        category:"notes"
-    }).then(res=>{
-        if(res.data.message){
-            console.log(res.data.data.length);
+
+  async onclickprofile() {
+    Axios.post("https://conektapi.herokuapp.com/users/profile/", {
+      usertoken: this.props.location.state.userToken
+    }).then(res => {
+      if (res.data.message) {
+        console.log(res.data.data);
+        this.setState({
+          profile: true,
+          data: JSON.stringify(res.data.data)
+        });
+      }
+    });
+  }
+
+  async onclickcommute() {
+    Axios.post("https://conektapi.herokuapp.com/posts/get-posts", {
+      usertoken: this.props.location.state.userToken,
+      category: "transport"
+    }).then(res => {
+      if (res.data.message) {
+        if (res.data.data.length > 0) {
+          // for(var i=0;i<res.data.data.length;i++)
+          // {
+          //     console.log(res.data.data[i].text)
+          // }
+          console.log(res.data.data);
+          this.setState({
+            data2:res.data.data,
+            commute: true
+          });
         }
-    }).catch(error => {
-        alert(error.response.data.message);
-      });
-}
-async onclickdorm(){
-    Axios.post("https://conektapi.herokuapp.com/posts/get-posts",{
-        usertoken: this.props.location.state.userToken,
-        category:"accomodation"
-    }).then(res=>{
-        if(res.data.message){
-            console.log(res.data.data.length);
+        else{
+          alert("no posts in commute")
         }
-    }).catch(error => {
-        alert(error.response.data.message);
-      });
-}
+      }
+    })
+    .catch(error => {
+      alert(error.response.data.message);
+    });
+  }
+  async onclicknotes() {
+    Axios.post("https://conektapi.herokuapp.com/posts/get-posts", {
+      usertoken: this.props.location.state.userToken,
+      category: "notes"
+    }).then(res => {
+      if (res.data.message) {
+        if (res.data.data.length > 0) {
+          // for(var i=0;i<res.data.data.length;i++)
+          // {
+          //     console.log(res.data.data[i].text)
+          // }
+          this.setState({
+            data2: res.data.data,
+            notes: true
+          });
+        }
+        else{
+          alert("no posts in notes")
+        }
+      }
+    })
+    .catch(error => {
+      alert(error.response.data.message);
+    });
+  }
+  async onclickdorm() {
+    Axios.post("https://conektapi.herokuapp.com/posts/get-posts", {
+      usertoken: this.props.location.state.userToken,
+      category: "accomodation"
+    }).then(res => {
+      if (res.data.message) {
+        if (res.data.data.length > 0) {
+          // for(var i=0;i<res.data.data.length;i++)
+          // {
+          //     console.log(res.data.data[i].text)
+          // }
+          this.setState({
+            data2: res.data.data,
+            dorm: true
+          });
+        }
+        else{
+          alert("no posts in dorm")
+        }
+      }
+    })
+    .catch(error => {
+      alert(error.response.data.message);
+    });
+  }
 
   async onclick() {
     Axios.get(
@@ -118,7 +190,7 @@ async onclickdorm(){
         }
       })
       .catch(error => {
-        alert(error.response.data.message, "danger");
+        alert(error.response.data.message);
       });
   }
   render() {
@@ -127,50 +199,77 @@ async onclickdorm(){
         <div>
           {this.renderRedirect()}
 
-          <img src={conekt} alt="conekt" height="60px" />
-
-          <Button className="navbarr" onClick={this.onclickprofile}>
-            PROFILE
-          </Button>
-
-          <Button className="navbarr" onClick={this.onclick}>
-            LOGOUT
-          </Button>
+          <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#home">
+              <img src={conekt} alt="conekt" height="60px" />
+            </Navbar.Brand>
+            <p>DASHBOARD</p>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ml-auto">
+                <Nav.Link onClick={this.onclickprofile}>Profile</Nav.Link>
+              </Nav>
+              <Nav>
+                <Nav.Link onClick={this.onclick}>Logout</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
         </div>
-        <div style={{textAlign:"center"}}>
-        <div style={{display:"inline-block",marginTop:"30px"}}>
-          <Card style={{ width: "18rem" ,height:"30rem",float:"right",margin:"20px"}}>
-            <Card.Img variant="top" src={commute}  />
-            <Card.Body>
-              <Card.Title>COMMUTE</Card.Title>
-              <Card.Text>
-                Give, Take and Share rides 
-              </Card.Text>
-              <Button onClick={this.onclickcommute} variant="primary">Go somewhere</Button>
-            </Card.Body>
-          </Card>
-          <Card style={{ width: "18rem", height:"30rem",float:"right",margin:"20px"}}>
-            <Card.Img variant="top" src={dorm}  />
-            <Card.Body>
-              <Card.Title>DORM</Card.Title>
-              <Card.Text>
-                Find a place to stay
-              </Card.Text>
-              <Button onClick={this.onclickdorm} variant="primary">Go somewhere</Button>
-            </Card.Body>
-          </Card>
-          <Card style={{ width: "18rem",height:"30rem", float:"right",margin:"20px"}}>
-            <Card.Img variant="top" src={notes}  />
-            <Card.Body>
-              <Card.Title>NOTES</Card.Title>
-              <Card.Text>
-                Get help with study notes
-              </Card.Text>
-              <Button onClick={this.onclicknotes} variant="primary">Go somewhere</Button>
-            </Card.Body>
-          </Card>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ display: "inline-block", marginTop: "30px" }}>
+            <Card
+              style={{
+                width: "18rem",
+                height: "30rem",
+                float: "right",
+                margin: "20px"
+              }}
+            >
+              <Card.Img variant="top" src={commute} />
+              <Card.Body>
+                <Card.Title>COMMUTE</Card.Title>
+                <Card.Text>Give, Take and Share rides</Card.Text>
+                <Button onClick={this.onclickcommute} variant="primary">
+                  Go
+                </Button>
+              </Card.Body>
+            </Card>
+            <Card
+              style={{
+                width: "18rem",
+                height: "30rem",
+                float: "right",
+                margin: "20px"
+              }}
+            >
+              <Card.Img variant="top" src={dorm} />
+              <Card.Body>
+                <Card.Title>DORM</Card.Title>
+                <Card.Text>Find a place to stay</Card.Text>
+                <Button onClick={this.onclickdorm} variant="primary">
+                  Go
+                </Button>
+              </Card.Body>
+            </Card>
+            <Card
+              style={{
+                width: "18rem",
+                height: "30rem",
+                float: "right",
+                margin: "20px"
+              }}
+            >
+              <Card.Img variant="top" src={notes} />
+              <Card.Body>
+                <Card.Title>NOTES</Card.Title>
+                <Card.Text>Get help with study notes</Card.Text>
+                <Button onClick={this.onclicknotes} variant="primary">
+                  Go
+                </Button>
+              </Card.Body>
+            </Card>
+          </div>
         </div>
-      </div>
       </div>
     );
   }
