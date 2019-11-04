@@ -3,65 +3,75 @@ import {Button, Navbar, Nav, Card, Image, Form} from "react-bootstrap";
 import Axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import './profile.css'
+import conekt from "./../conekt.png";
 class profile extends Component {
+  constructor(props) {
+    super(props);
+    this.onclick = this.onclick.bind(this);
+    this.onclickdashboard = this.onclickdashboard.bind(this);
+    this.state = { redirect: false, dashboard: false, data: null };
+  }
 
-    constructor(props) {
-        super(props);
-        this.onclick = this.onclick.bind(this);
-        this.onclickdashboard = this.onclickdashboard.bind(this);
-        this.state={ redirect:false, dashboard:false,data:null }
-        
-    }
+  componentWillMount() {
+    this.setState({ data: this.props.location.state.data });
+  }
 
-    componentWillMount(){
-        this.setState({data:this.props.location.state.data});
-    }
-
-    async onclick(){
-        Axios.get("https://conektapi.herokuapp.com/users/logout/"+this.props.location.state.userToken).then(res => {
-            if (res.data.message) {
-             alert("LOGGED out successfully");
-             this.setState({redirect:true});
-            }   
-            
-          })
-          .catch(error => {
-           alert(error.response.data.message, "danger");
-          });
-    }
-
-    onclickdashboard(){
-        this.setState({dashboard:true});
-    }
-
-    renderRedirect(){
-        if(this.state.redirect){
-        return <Redirect to='/'/>}
-        if(this.state.dashboard) {
-            return <Redirect to={{pathname: '/dashboard',
-            state: {userToken:this.props.location.state.userToken}}}
-        />
+  async onclick() {
+    Axios.get(
+      "https://conektapi.herokuapp.com/users/logout/" +
+        this.props.location.state.userToken
+    )
+      .then(res => {
+        if (res.data.message) {
+          alert("LOGGED out successfully");
+          this.setState({ redirect: true });
         }
+      })
+      .catch(error => {
+        alert(error.response.data.message, "danger");
+      });
+  }
+
+  onclickdashboard() {
+    this.setState({ dashboard: true });
+  }
+
+  renderRedirect() {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
     }
+    if (this.state.dashboard) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/dashboard",
+            state: { userToken: this.props.location.state.userToken }
+          }}
+        />
+      );
+    }
+  }
 
-    render() { 
-        return (<div>
-                    {this.renderRedirect()}
+  render() {
+    return (
+      <div>
+        {this.renderRedirect()}
 
-
-                    <Navbar bg="light" expand="lg">
-                        <Navbar.Brand href="#home">Conekt</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="mr-auto">
-                                <Nav.Link onClick={this.onclickdashboard}>Dashboard</Nav.Link>                            
-                            </Nav>
-                            <Nav>
-                                <Button variant="danger" onClick={this.onclick}>Logout</Button>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Navbar>
-
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="#home">
+            <img src={conekt} alt="conekt" height="60px" />
+          </Navbar.Brand>
+          <p>PROFILE</p>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
+              <Nav.Link onClick={this.onclickdashboard}>Dashboard</Nav.Link>
+            </Nav>
+            <Nav>
+              <Button variant="danger" onClick={this.onclick}>Logout</Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
 
                     <Card style={{ width: '100%' }}>                    
                     <Card.Body>
@@ -70,7 +80,7 @@ class profile extends Component {
                             <Image width='200px' src={JSON.parse(this.state.data).profilePic} rounded/>
                         </div>
                         <Card.Text>
-                        <Form className="">
+                        <Form className="form">
                             <div>
                                 <label>User Name: </label>
                                 <input type='text' value={JSON.parse(this.state.data).userName}/>
@@ -93,5 +103,5 @@ class profile extends Component {
         );
     }
 }
- 
+
 export default profile;
