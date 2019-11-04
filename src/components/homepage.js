@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Jumbotron, Container, Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
+import Alert from 'react-bootstrap/Alert';
 class homepage extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +66,11 @@ class homepage extends Component {
         }
       })
       .catch(error => {
-        alert(error.response.data.message, "danger");
+       alert(error.response.data.message);
+        // return(<div>
+        // <Alert variant="danger">
+        //   <p>{error.response.data.message}</p>
+        // </Alert></div>);
       });
 
     // console.log(`Form submitted`);
@@ -111,10 +116,12 @@ class homepage extends Component {
     })
       .then(res => {
         if (res.data.message) {
-          alert(
-            "User registered successfully! Please verify your email to continue",
-            "success"
-          );
+          // return(<div>
+          //   <Alert variant="success">
+          //     <p>Yay you've successfully registered, please verify your email to continue.</p>
+          //   </Alert></div>
+          // )
+          alert("Yay you've successfully registered, please verify your email to continue.");
         }
         this.setState({
           username: "",
@@ -125,6 +132,11 @@ class homepage extends Component {
       })
       .catch(error => {
         alert(error.response.data.message, "danger");
+        // return(<div>
+        //   <Alert variant="danger">
+        //     <p>{error.response.data.message}</p>
+        //   </Alert></div>
+        // )
       });
 
     // console.log(`Form submitted`);
@@ -139,8 +151,8 @@ class homepage extends Component {
     return (
       <div>
         {this.renderRedirect()}
-        <div>
-          <Jumbotron fluid>
+        <div className="home">
+          <Jumbotron fluid >
             <Container style={{textAlign:"center"}}>
               <h1>CONEKT</h1>
             </Container>

@@ -3,7 +3,7 @@ import { Navbar, Nav, Card, Button } from "react-bootstrap";
 import conekt from "./../conekt.png";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
-class commute extends Component {
+class dorm extends Component {
   constructor(props) {
     super(props);
     this.onclick = this.onclick.bind(this);
@@ -78,7 +78,7 @@ class commute extends Component {
           <Navbar.Brand href="#home">
             <img src={conekt} alt="conekt" height="60px" />
           </Navbar.Brand>
-          #COMMUTE
+          #ACCOMODATION
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
@@ -98,4 +98,4 @@ class commute extends Component {
   }
 }
 
-export default commute;
+export default dorm;

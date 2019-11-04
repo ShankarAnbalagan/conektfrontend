@@ -5,6 +5,9 @@ import homepage from "./components/homepage";
 import dashboard from "./components/dashboard";
 import profile from "./components/profile";
 import commute from "./components/commute";
+import notes from "./components/notes";
+import dorm from "./components/dorm";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -14,6 +17,8 @@ function App() {
         <Route path="/dashboard"  component={dashboard} />
         <Route path="/profile"  component={profile} />
         <Route path="/commute"  component={commute} />
+        <Route path="/notes"  component={notes} />
+        <Route path="/dorm"  component={dorm} />
       </Switch>
     </Router>
   );
