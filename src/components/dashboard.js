@@ -23,6 +23,7 @@ class dashboard extends Component {
       notes:false
     };
   }
+
   renderRedirect() {
     if (this.state.redirect) {
       console.log("something");
@@ -40,14 +41,28 @@ class dashboard extends Component {
         console.log("something");
         return <Redirect to="/notes" />;
       }
-    if (this.state.profile) {
-      return (
-        <Redirect
-          to={{ pathname: "/profile", state: { data: this.state.data } }}
-        />
-      );
+      if(this.state.profile) {
+        return <Redirect to={{pathname: '/profile',
+        state: {data:this.state.data, userToken:this.props.location.state.userToken}}}/>
     }
-  }
+}
+
+        async onclickprofile(){
+            Axios.post("https://conektapi.herokuapp.com/users/profile/",
+            {
+                usertoken:this.props.location.state.userToken
+            }
+            ).then(res =>{
+                if(res.data.message){
+                    console.log(res.data.data);
+                    this.setState({
+                        profile:true,
+                        data:JSON.stringify(res.data.data)
+                    })
+                }
+            }
+            );
+        }
 
   async onclickcommute(){
       Axios.post("https://conektapi.herokuapp.com/posts/get-posts",{
@@ -90,20 +105,7 @@ async onclickdorm(){
         alert(error.response.data.message);
       });
 }
-  async onclickprofile() {
-    Axios.post("https://conektapi.herokuapp.com/users/profile/", {
-      usertoken: this.props.location.state.userToken
-    }).then(res => {
-      if (res.data.message) {
-        this.setState({
-          profile: true,
-          data: res.data.data
-        });
-      }
-    }).catch(error => {
-        alert(error.response.data.message);
-      });
-  }
+
   async onclick() {
     Axios.get(
       "https://conektapi.herokuapp.com/users/logout/" +
