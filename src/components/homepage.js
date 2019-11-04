@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Jumbotron, Container, Row, Col } from "react-bootstrap";
+import { Jumbotron, Container} from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Axios from 'axios';
 class homepage extends Component {

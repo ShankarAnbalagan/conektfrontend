@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Button, Navbar, Nav, Card, Image} from "react-bootstrap";
+import {Button, Navbar, Nav, Card, Image, Form} from "react-bootstrap";
 import Axios from 'axios';
 import {Redirect} from 'react-router-dom';
+import './profile.css'
 class profile extends Component {
 
     constructor(props) {
@@ -56,7 +57,7 @@ class profile extends Component {
                                 <Nav.Link onClick={this.onclickdashboard}>Dashboard</Nav.Link>                            
                             </Nav>
                             <Nav>
-                            <Nav.Link  onClick={this.onclick}>Logout</Nav.Link>
+                                <Button variant="danger" onClick={this.onclick}>Logout</Button>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
@@ -65,24 +66,26 @@ class profile extends Component {
                     <Card style={{ width: '100%' }}>                    
                     <Card.Body>
                         <Card.Title>User Profile</Card.Title>
-                        <div>
-                            <label>Profile Picture: </label>
-                            <Image width='10%' src={JSON.parse(this.state.data).profilePic} roundedCircle/>
+                        <div className='left'>
+                            <Image width='200px' src={JSON.parse(this.state.data).profilePic} rounded/>
                         </div>
                         <Card.Text>
-                        <div>
-                            <label>User Name: </label>
-                            <input type='text' value={JSON.parse(this.state.data).userName}/>
-                        </div>
-                        <div>
-                            <label>Branch/Department: {JSON.parse(this.state.data).branch}</label>
-                        </div>
-                        <div>
-                            <label>Bio: </label>
-                            <textarea rows="4" value={JSON.parse(this.state.data).bio}/>
-                        </div>
+                        <Form className="">
+                            <div>
+                                <label>User Name: </label>
+                                <input type='text' value={JSON.parse(this.state.data).userName}/>
+                            </div>
+                            <div>
+                                <label>Branch/Department: </label><label className="normalLabel">{JSON.parse(this.state.data).branch}</label>
+                            </div>
+                            <div className="alignCenter">
+                                <label>Bio: </label>
+                                <textarea rows="4" value={JSON.parse(this.state.data).bio}/>
+                            </div>
+                            <Button variant="primary" width="5%">Save Changes</Button>
+                        </Form>
                         </Card.Text>
-                        <Button variant="primary" width="5%">Save Changes</Button>
+                        
                     </Card.Body>                    
                     </Card>
                 </div> 
