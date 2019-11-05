@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Jumbotron, Container, Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
-import Alert from 'react-bootstrap/Alert';
+import conekt from "./../conekt.png"
 class homepage extends Component {
   constructor(props) {
     super(props);
@@ -66,7 +66,7 @@ class homepage extends Component {
         }
       })
       .catch(error => {
-       alert(error.response.data.message);
+        alert(error.response.data.message);
         // return(<div>
         // <Alert variant="danger">
         //   <p>{error.response.data.message}</p>
@@ -121,7 +121,9 @@ class homepage extends Component {
           //     <p>Yay you've successfully registered, please verify your email to continue.</p>
           //   </Alert></div>
           // )
-          alert("Yay you've successfully registered, please verify your email to continue.");
+          alert(
+            "Yay you've successfully registered, please verify your email to continue."
+          );
         }
         this.setState({
           username: "",
@@ -152,25 +154,23 @@ class homepage extends Component {
       <div>
         {this.renderRedirect()}
         <div className="home">
-          <Jumbotron fluid >
-            <Container style={{textAlign:"center"}}>
-              <h1>CONEKT</h1>
-            </Container>
-          </Jumbotron>
+          
+              <h1><img src={conekt} alt="img" height="20%"/>CONEKT</h1>
+            
         </div>
 
-        <div style={{ textAlign: "center" }}>
-          <div style={{ display: "inline-block", marginTop: "30px" }}>
+        <div className="back" style={{ textAlign: "center" }}>
+          <div style={{ display: "inline-block", marginTop: "20px" }}>
             <Card
               style={{
                 width: "40%",
                 marginRight: "20%",
-                float:"left"
-              
+                float: "left"
               }}
             >
+              <Card.Title>Register here</Card.Title>
               <Card.Body>
-                <form onSubmit={this.onSignUpSubmit} className="left FormRules">
+                <form onSubmit={this.onSignUpSubmit} className="FormRules">
                   <div className="form-group FormField">
                     <label className="FormField__Label" htmlFor="name">
                       Username
@@ -263,17 +263,17 @@ class homepage extends Component {
             <Card
               style={{
                 width: "40%"
-              
               }}
             >
+              <Card.Title>Log-In here</Card.Title>
               <Card.Body>
                 <form
                   onSubmit={this.onSignInSubmit}
-                  className="right FormRules"
+                  className="FormRules"
                   method="post"
                 >
                   <div className="form-group FormField">
-                    <label className="FormField__Label" htmlFor="name">
+                    <label className="FormField__Label" htmlFor="name" style={{margin:"1px"}}>
                       Username
                     </label>
                     <br />

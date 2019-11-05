@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import {Button, Navbar, Nav, Card, Image, Form} from "react-bootstrap";
-import Axios from 'axios';
-import {Redirect} from 'react-router-dom';
-import './profile.css'
+import React, { Component } from "react";
+import { Button, Navbar, Nav, Card, Image, Form } from "react-bootstrap";
+import Axios from "axios";
+import { Redirect } from "react-router-dom";
+import "./profile.css";
 import conekt from "./../conekt.png";
 class profile extends Component {
   constructor(props) {
@@ -61,47 +61,58 @@ class profile extends Component {
           <Navbar.Brand href="#home">
             <img src={conekt} alt="conekt" height="60px" />
           </Navbar.Brand>
-          <p>PROFILE</p>
+          <h1>PROFILE</h1>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <Nav.Link onClick={this.onclickdashboard}>Dashboard</Nav.Link>
+              <Button classname="but" variant="dark" onClick={this.onclickdashboard}>
+                Dashboard
+              </Button>
             </Nav>
             <Nav>
-              <Button variant="danger" onClick={this.onclick}>Logout</Button>
+              <Button className="but" variant="danger" onClick={this.onclick}>
+                Logout
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-
-                    <Card style={{ width: '100%' }}>                    
-                    <Card.Body>
-                        <Card.Title>User Profile</Card.Title>
-                        <div className='left'>
-                            <Image width='200px' src={JSON.parse(this.state.data).profilePic} rounded/>
-                        </div>
-                        <Card.Text>
-                        <Form className="form">
-                            <div>
-                                <label>User Name: </label>
-                                <input type='text' value={JSON.parse(this.state.data).userName}/>
-                            </div>
-                            <div>
-                                <label>Branch/Department: </label><label className="normalLabel">{JSON.parse(this.state.data).branch}</label>
-                            </div>
-                            <div className="alignCenter">
-                                <label>Bio: </label>
-                                <textarea rows="4" value={JSON.parse(this.state.data).bio}/>
-                            </div>
-                            <Button variant="primary" width="5%">Save Changes</Button>
-                        </Form>
-                        </Card.Text>
-                        
-                    </Card.Body>                    
-                    </Card>
-                </div> 
-            
-        );
-    }
+        <div className="back" style={{ textAlign: "center" ,height:"100vh"}}>
+          <div style={{ display: "inline-block", marginTop: "30px" }}>
+            <Card style={{ width: "100vh", margin:"10px" }}>
+              <Card.Body>
+                <Card.Title>{JSON.parse(this.state.data).userName}</Card.Title>
+                <div >
+                  <Image
+                    width="200px"
+                    src={JSON.parse(this.state.data).profilePic}
+                    rounded
+                  />
+                </div>
+                <Card.Text>
+                  
+                    
+                    <div>
+                      <label>Branch/Department: </label>
+                      <label className="normalLabel">
+                        {JSON.parse(this.state.data).branch}
+                      </label>
+                    </div>
+                    <div className="alignCenter">
+                      <label>Bio: </label>
+                      {JSON.parse(this.state.data).bio}
+                      
+                    </div>
+                    
+                 
+                </Card.Text>
+              </Card.Body>
+            </Card>
+<Button variant="light" className="but" style={{width:"100vh"}}>Edit Profile</Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default profile;

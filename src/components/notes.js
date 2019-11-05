@@ -58,7 +58,7 @@ class notes extends Component {
   render() {
     const obj = this.state.data.map(({ opId, opName, text, displayTime }) => {
       return (
-        <Card body>
+        <Card body style={{ margin: "4px" }}>
           {" "}
           <h4 key={opId}>{text}</h4>
           <p>
@@ -78,21 +78,23 @@ class notes extends Component {
           <Navbar.Brand href="#home">
             <img src={conekt} alt="conekt" height="60px" />
           </Navbar.Brand>
-          #NOTES
+          <h1>#NOTES</h1>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-              <Nav.Link onClick={this.onclicknewpost}>CreateNewPost</Nav.Link>
+              <Button className="but" variant="dark" onClick={this.onclicknewpost}>CreateNewPost</Button>
             </Nav>
             <Nav >
-              <Nav.Link onClick={this.onclickdashboard}>Dashboard</Nav.Link>
+              <Button className="but" variant="dark" onClick={this.onclickdashboard}>Dashboard</Button>
             </Nav>
             <Nav>
-              <Nav.Link onClick={this.onclick}>Logout</Nav.Link>
+              <Button className="but" variant="danger" onClick={this.onclick}>Logout</Button>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <div>{obj}</div>
+        <div className="back" style={{ height: "100vh" }}>
+          <div>{obj}</div>
+        </div>
       </div>
     );
   }

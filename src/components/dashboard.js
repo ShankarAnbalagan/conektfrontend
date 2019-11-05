@@ -203,19 +203,19 @@ class dashboard extends Component {
             <Navbar.Brand href="#home">
               <img src={conekt} alt="conekt" height="60px" />
             </Navbar.Brand>
-            <p>DASHBOARD</p>
+            <h1>DASHBOARD</h1>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto">
-                <Nav.Link onClick={this.onclickprofile}>Profile</Nav.Link>
+                <Button className="but" variant="dark" onClick={this.onclickprofile}>Profile</Button>
               </Nav>
               <Nav>
-                <Button variant="danger" onClick={this.onclick}>Logout</Button>
+                <Button className="but" variant="danger" onClick={this.onclick}>Logout</Button>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div style={{ textAlign: "center" }}>
+        <div className="back" style={{ textAlign: "center", height:"100vh"}}>
           <div style={{ display: "inline-block", marginTop: "30px" }}>
             <Card
               style={{
@@ -229,7 +229,7 @@ class dashboard extends Component {
               <Card.Body>
                 <Card.Title>COMMUTE</Card.Title>
                 <Card.Text>Give, Take and Share rides</Card.Text>
-                <Button onClick={this.onclickcommute} variant="primary">
+                <Button variant="dark" onClick={this.onclickcommute}>
                   Go
                 </Button>
               </Card.Body>
@@ -246,7 +246,7 @@ class dashboard extends Component {
               <Card.Body>
                 <Card.Title>DORM</Card.Title>
                 <Card.Text>Find a place to stay</Card.Text>
-                <Button onClick={this.onclickdorm} variant="primary">
+                <Button variant="dark" onClick={this.onclickdorm}>
                   Go
                 </Button>
               </Card.Body>
@@ -263,7 +263,7 @@ class dashboard extends Component {
               <Card.Body>
                 <Card.Title>NOTES</Card.Title>
                 <Card.Text>Get help with study notes</Card.Text>
-                <Button onClick={this.onclicknotes} variant="primary">
+                <Button variant="dark" onClick={this.onclicknotes}>
                   Go
                 </Button>
               </Card.Body>

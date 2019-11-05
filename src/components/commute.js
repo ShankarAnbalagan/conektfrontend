@@ -3,21 +3,62 @@ import { Navbar, Nav, Card, Button } from "react-bootstrap";
 import conekt from "./../conekt.png";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
+import Miniform from "./Miniform";
 class commute extends Component {
   constructor(props) {
     super(props);
     this.onclick = this.onclick.bind(this);
     this.onclicknewpost = this.onclicknewpost.bind(this);
+    this.gettext = this.gettext.bind(this);
     this.onclickdashboard = this.onclickdashboard.bind(this);
-    this.state = { redirect: false, dashboard: false, data: null };
+    this.state = {
+      redirect: false,
+      dashboard: false,
+      data: null,
+      createpost: false,
+      post: ""
+    };
   }
 
   componentWillMount() {
     this.setState({ data: this.props.location.state.data });
   }
 
-  async onclicknewpost(){
-      alert("this will happen later");
+  onclicknewpost() {
+    this.setState({
+      createpost: true
+    });
+  }
+
+  async gettext(e) {
+    e.preventDefault();
+    const post = e.target.elements.post.value;
+    console.log(post);
+    if (post) {
+      Axios.post("https://conektapi.herokuapp.com/posts/create-post", {
+        usertoken: this.props.location.state.userToken,
+        text: post,
+        postCategory: "transport",
+        parentPost: "root"
+      })
+        .then(res => {
+          if (res.data.message) {
+            this.setState({
+              createpost: false
+            });
+            alert("Done! Redirecting you back to dashboard");
+            this.setState({
+              dashboard: true
+            });
+          }
+        })
+        .catch(error => {
+          this.setState({
+            createpost: false
+          });
+          alert(error);
+        });
+    }
   }
 
   async onclick() {
@@ -58,8 +99,7 @@ class commute extends Component {
   render() {
     const obj = this.state.data.map(({ opId, opName, text, displayTime }) => {
       return (
-        <Card body>
-          {" "}
+        <Card body style={{ margin: "4px" }}>
           <h4 key={opId}>{text}</h4>
           <p>
             Posted by: {opName} on {displayTime}
@@ -73,26 +113,34 @@ class commute extends Component {
     return (
       <div>
         {this.renderRedirect()}
-
+        {this.state.createpost ? <Miniform gettext={this.gettext} /> : null}
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="#home">
             <img src={conekt} alt="conekt" height="60px" />
           </Navbar.Brand>
-          #COMMUTE
+          <h1>#COMMUTE</h1>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-              <Nav.Link onClick={this.onclicknewpost}>CreateNewPost</Nav.Link>
-            </Nav>
-            <Nav >
-              <Nav.Link onClick={this.onclickdashboard}>Dashboard</Nav.Link>
+            <Nav className="ml-auto">
+              <Button className="but" variant="dark" onClick={this.onclicknewpost}>
+                CreateNewPost
+              </Button>
             </Nav>
             <Nav>
-              <Nav.Link onClick={this.onclick}>Logout</Nav.Link>
+              <Button className="but" variant="dark" onClick={this.onclickdashboard}>
+                Dashboard
+              </Button>
+            </Nav>
+            <Nav>
+              <Button className="but" variant="danger" onClick={this.onclick}>
+                Logout
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <div>{obj}</div>
+        <div className="back" style={{ height: "100vh" }}>
+          <div>{obj}</div>
+        </div>
       </div>
     );
   }
