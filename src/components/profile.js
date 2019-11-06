@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Navbar, Nav, Card, Image, Form } from "react-bootstrap";
+import { Button, Navbar, Nav, Card, Image} from "react-bootstrap";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
 import "./profile.css";

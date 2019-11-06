@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Jumbotron, Container, Card } from "react-bootstrap";
+import {  Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
 import conekt from "./../conekt.png"
