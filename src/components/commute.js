@@ -113,7 +113,7 @@ class commute extends Component {
     return (
       <div>
         {this.renderRedirect()}
-        {this.state.createpost ? <Miniform gettext={this.gettext} /> : null}
+
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="#home">
             <img src={conekt} alt="conekt" height="60px" />
@@ -122,12 +122,20 @@ class commute extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <Button className="but" variant="dark" onClick={this.onclicknewpost}>
+              <Button
+                className="but"
+                variant="dark"
+                onClick={this.onclicknewpost}
+              >
                 CreateNewPost
               </Button>
             </Nav>
             <Nav>
-              <Button className="but" variant="dark" onClick={this.onclickdashboard}>
+              <Button
+                className="but"
+                variant="dark"
+                onClick={this.onclickdashboard}
+              >
                 Dashboard
               </Button>
             </Nav>
@@ -138,6 +146,7 @@ class commute extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+        {this.state.createpost ? <Miniform gettext={this.gettext} /> : null}
         <div className="back" style={{ height: "100vh" }}>
           <div>{obj}</div>
         </div>

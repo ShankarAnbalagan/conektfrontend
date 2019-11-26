@@ -113,7 +113,7 @@ class dorm extends Component {
     return (
       <div>
         {this.renderRedirect()}
-        {this.state.createpost ? <Miniform gettext={this.gettext} /> : null}
+
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="#home">
             <img src={conekt} alt="conekt" height="60px" />
@@ -146,6 +146,7 @@ class dorm extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+        {this.state.createpost ? <Miniform gettext={this.gettext} /> : null}
         <div className="back" style={{ height: "100vh" }}>
           <div>{obj}</div>
         </div>
