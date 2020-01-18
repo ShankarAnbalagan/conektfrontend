@@ -7,7 +7,6 @@ import profile from "./components/profile";
 import commute from "./components/commute";
 import notes from "./components/notes";
 import dorm from "./components/dorm";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (

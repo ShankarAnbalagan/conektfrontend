@@ -146,7 +146,7 @@ class notes extends Component {
           </Navbar.Collapse>
         </Navbar>
         {this.state.createpost ? <Miniform gettext={this.gettext} /> : null}
-        <div className="back" style={{ height: "100vh" }}>
+        <div className="back" style={{ height: "100%" }}>
           <div>{obj}</div>
         </div>
       </div>

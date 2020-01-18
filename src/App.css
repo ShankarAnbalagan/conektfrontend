@@ -37,3 +37,24 @@ html, body{
 .FormField{
   width:100%;
 }
+.right {
+  float: right;
+}
+.left{
+  float:left;    
+}
+
+label{
+    padding: 10px;
+    font-weight: bold;
+}
+
+textarea{
+    vertical-align: middle;
+    width: 300px;
+   }
+
+.normalLabel{
+  font-weight: normal;
+  padding: 0px;
+}
