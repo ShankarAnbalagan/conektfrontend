@@ -85,11 +85,11 @@ class profile extends Component {
     // alert(id);
     Axios.post("https://conektapi.herokuapp.com/posts/delete-post", {
       usertoken: this.props.location.state.userToken,
-      postId: { id }
+      postid:id 
     }).then(res => {
       if (res.data.message) {
         this.setState({
-          dashboard: true
+          dashboard:true
         });
       }
     });
